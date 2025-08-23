@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="manufacturing_erp_suite.list">
+      <field name="name">manufacturing_erp_suite list</field>
+      <field name="model">manufacturing_erp_suite.manufacturing_erp_suite</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="manufacturing_erp_suite.action_window">
+      <field name="name">manufacturing_erp_suite window</field>
+      <field name="res_model">manufacturing_erp_suite.manufacturing_erp_suite</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="manufacturing_erp_suite.action_server">
+      <field name="name">manufacturing_erp_suite server</field>
+      <field name="model_id" ref="model_manufacturing_erp_suite_manufacturing_erp_suite"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="manufacturing_erp_suite" id="manufacturing_erp_suite.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="manufacturing_erp_suite.menu_1" parent="manufacturing_erp_suite.menu_root"/>
+    <menuitem name="Menu 2" id="manufacturing_erp_suite.menu_2" parent="manufacturing_erp_suite.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="manufacturing_erp_suite.menu_1_list" parent="manufacturing_erp_suite.menu_1"
+              action="manufacturing_erp_suite.action_window"/>
+    <menuitem name="Server to list" id="manufacturing_erp_suite" parent="manufacturing_erp_suite.menu_2"
+              action="manufacturing_erp_suite.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_manufacturing_production_plan,manufacturing.production.plan,model_manufacturing_production_plan,,1,1,1,1
+access_manufacturing_resource_requirement,manufacturing.resource.requirement,model_manufacturing_resource_requirement,,1,1,1,1
+access_manufacturing_milestone,manufacturing.milestone,model_manufacturing_milestone,,1,1,1,1
+
