@@ -4,3 +4,6 @@ access_manufacturing_production_plan,manufacturing.production.plan,model_manufac
 access_manufacturing_resource_requirement,manufacturing.resource.requirement,model_manufacturing_resource_requirement,,1,1,1,1
 access_manufacturing_milestone,manufacturing.milestone,model_manufacturing_milestone,,1,1,1,1
 
+
+access_manufacturing_engineering_change_user,manufacturing.engineering.change.user,model_manufacturing_engineering_change,mrp.group_mrp_user,1,1,1,0
+access_manufacturing_engineering_change_manager,manufacturing.engineering.change.manager,model_manufacturing_engineering_change,mrp.group_mrp_manager,1,1,1,1

@@ -39,7 +39,7 @@ class ProductionPlan(models.Model):
     product_id = fields.Many2one('product.product', 'Product', required=True)
     product_qty = fields.Float('Quantity', required=True, default=1.0)
     product_uom_id = fields.Many2one('uom.uom', 'Unit of Measure')
-    # bom_id = fields.Many2one('mrp.bom', 'Bill of Materials')
+    bom_id = fields.Many2one('mrp.bom', 'Bill of Materials')
     # work_center_id = fields.Many2one('manufacturing.work.center', 'Work Center')
 
     # Smart Scheduling
@@ -90,18 +90,18 @@ class ProductionPlan(models.Model):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('manufacturing.production.plan') or 'New'
         return super(ProductionPlan, self).create(vals)
 
-    # @api.depends('bom_id', 'product_qty')
-    # def _compute_estimated_duration(self):
-    #     for record in self:
-    #         if record.bom_id:
-    #             total_time = 0
-    #             for operation in record.bom_id.operation_ids:
-    #                 setup_time = operation.time_mode_batch
-    #                 cycle_time = operation.time_cycle * record.product_qty
-    #                 total_time += setup_time + cycle_time
-    #             record.estimated_duration = total_time / 60.0
-    #         else:
-    #             record.estimated_duration = 0.0
+    @api.depends('bom_id', 'product_qty')
+    def _compute_estimated_duration(self):
+        for record in self:
+            if record.bom_id:
+                total_time = 0
+                for operation in record.bom_id.operation_ids:
+                    setup_time = operation.time_mode_batch
+                    cycle_time = operation.time_cycle * record.product_qty
+                    total_time += setup_time + cycle_time
+                record.estimated_duration = total_time / 60.0
+            else:
+                record.estimated_duration = 0.0
 
     @api.depends('estimated_duration', 'actual_duration')
     def _compute_efficiency(self):
@@ -111,23 +111,6 @@ class ProductionPlan(models.Model):
             else:
                 record.efficiency = 0.0
 
-    # @api.depends('bom_id', 'product_qty')
-    # def _compute_estimated_cost(self):
-    #     for record in self:
-    #         if record.bom_id:
-    #             material_cost = 0
-    #             for line in record.bom_id.bom_line_ids:
-    #                 qty_needed = line.product_qty * record.product_qty / record.bom_id.product_qty
-    #                 material_cost += qty_needed * line.product_id.standard_price
-    #
-    #             labor_cost = 0
-    #             for operation in record.bom_id.operation_ids:
-    #                 time_needed = (operation.time_mode_batch + operation.time_cycle * record.product_qty) / 60.0
-    #                 labor_cost += time_needed * operation.workcenter_id.costs_hour
-    #
-    #             record.estimated_cost = material_cost + labor_cost
-    #         else:
-    #             record.estimated_cost = 0.0
 
     def action_confirm(self):
         self.write({'state': 'confirmed'})
@@ -214,7 +197,7 @@ class Milestone(models.Model):
     _name = 'manufacturing.milestone'
     _description = 'Production Milestone'
 
-    # production_plan_id = fields.Many2one('manufacturing.production.plan', 'Production Plan')
+    production_plan_id = fields.Many2one('manufacturing.production.plan', 'Production Plan')
     name = fields.Char('Milestone Name', required=True)
     description = fields.Text('Description')
     planned_date = fields.Datetime('Planned Date')

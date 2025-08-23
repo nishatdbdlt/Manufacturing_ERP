@@ -1,0 +1,132 @@
+<odoo>
+
+    <!-- Engineering Change Views -->
+
+    <!-- Engineering Change Form View -->
+    <record id="view_engineering_change_form" model="ir.ui.view">
+        <field name="name">manufacturing.engineering.change.form</field>
+        <field name="model">manufacturing.engineering.change</field>
+        <field name="arch" type="xml">
+            <form string="Engineering Change Order">
+<!--                <header>-->
+<!--&lt;!&ndash;                    <button name="action_submit_review" string="Submit for Review"&ndash;&gt;-->
+<!--&lt;!&ndash;                            type="object" class="btn-primary"&ndash;&gt;-->
+<!--&lt;!&ndash;                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>&ndash;&gt;-->
+<!--                    <button name="action_approve" string="Approve"-->
+<!--                            type="object" class="btn-primary"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'review')]}"/>-->
+<!--                    <button name="action_implement" string="Implement"-->
+<!--                            type="object" class="btn-primary"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>-->
+<!--                    <button name="action_reject" string="Reject"-->
+<!--                            type="object" class="btn-secondary"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['review', 'approved'])]}"/>-->
+<!--                    <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,implemented"/>-->
+<!--                </header>-->
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="ECO Number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bom_id"/>
+                            <field name="change_type"/>
+                            <field name="requested_by"/>
+                        </group>
+                        <group>
+                            <field name="effective_date"/>
+                            <field name="cost_impact"/>
+                            <field name="approved_by" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Change Details">
+                            <group>
+                                <field name="description" nolabel="1" placeholder="Describe the engineering change..."/>
+                            </group>
+                            <group string="Analysis">
+                                <field name="reason" nolabel="1" placeholder="Reason for this change..."/>
+                                <field name="impact_analysis" nolabel="1" placeholder="Impact analysis of this change..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Engineering Change Tree View -->
+    <record id="view_engineering_change_tree" model="ir.ui.view">
+        <field name="name">manufacturing.engineering.change.tree</field>
+        <field name="model">manufacturing.engineering.change</field>
+        <field name="arch" type="xml">
+            <tree string="Engineering Changes" decoration-info="state=='draft'"
+                  decoration-warning="state=='review'" decoration-success="state=='approved'"
+                  decoration-muted="state=='rejected'">
+                <field name="name"/>
+                <field name="bom_id"/>
+                <field name="change_type"/>
+                <field name="requested_by"/>
+                <field name="effective_date"/>
+                <field name="cost_impact"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Engineering Change Search View -->
+    <record id="view_engineering_change_search" model="ir.ui.view">
+        <field name="name">manufacturing.engineering.change.search</field>
+        <field name="model">manufacturing.engineering.change</field>
+        <field name="arch" type="xml">
+            <search string="Engineering Changes">
+                <field name="name"/>
+                <field name="bom_id"/>
+                <field name="change_type"/>
+                <field name="requested_by"/>
+                <field name="state"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="review" string="Under Review" domain="[('state', '=', 'review')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="implemented" string="Implemented" domain="[('state', '=', 'implemented')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_change_type" string="Change Type" context="{'group_by': 'change_type'}"/>
+                    <filter name="group_by_bom" string="BOM" context="{'group_by': 'bom_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Engineering Change Action -->
+    <record id="action_engineering_change" model="ir.actions.act_window">
+        <field name="name">Engineering Changes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">manufacturing.engineering.change</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_engineering_change_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Engineering Change Order
+            </p>
+            <p>
+                Engineering Change Orders help you track and manage changes to your Bills of Materials.
+            </p>
+        </field>
+    </record>
+
+     <menuitem id="menu_manufacturing_erp_root" name="Manufacturing ERP" sequence="10"/>
+
+    <menuitem id="menu_engineering_changes" name="Engineering Changes"
+              parent="menu_manufacturing_erp_root"
+              action="action_engineering_change"
+              sequence="10"/>
+</odoo>
