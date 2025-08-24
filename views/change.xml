@@ -8,21 +8,21 @@
         <field name="model">manufacturing.engineering.change</field>
         <field name="arch" type="xml">
             <form string="Engineering Change Order">
-<!--                <header>-->
-<!--&lt;!&ndash;                    <button name="action_submit_review" string="Submit for Review"&ndash;&gt;-->
-<!--&lt;!&ndash;                            type="object" class="btn-primary"&ndash;&gt;-->
-<!--&lt;!&ndash;                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>&ndash;&gt;-->
-<!--                    <button name="action_approve" string="Approve"-->
+                <header>
+<!--                    <button name="action_submit_review" string="Submit for Review"-->
 <!--                            type="object" class="btn-primary"-->
-<!--                            attrs="{'invisible': [('state', '!=', 'review')]}"/>-->
-<!--                    <button name="action_implement" string="Implement"-->
-<!--                            type="object" class="btn-primary"-->
-<!--                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>-->
-<!--                    <button name="action_reject" string="Reject"-->
-<!--                            type="object" class="btn-secondary"-->
-<!--                            attrs="{'invisible': [('state', 'not in', ['review', 'approved'])]}"/>-->
-<!--                    <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,implemented"/>-->
-<!--                </header>-->
+<!--                            />-->
+                    <button name="action_approve" string="Approve"
+                            type="object" class="btn-primary"
+                            />
+                    <button name="action_implement" string="Implement"
+                            type="object" class="btn-primary"
+                            />
+                    <button name="action_reject" string="Reject"
+                            type="object" class="btn-secondary"
+                            />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,implemented"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -123,10 +123,10 @@
         </field>
     </record>
 
-     <menuitem id="menu_manufacturing_erp_root" name="Manufacturing ERP" sequence="10"/>
+     <menuitem id="menu_production_management" name="Manufacturing ERP" sequence="10"/>
 
     <menuitem id="menu_engineering_changes" name="Engineering Changes"
-              parent="menu_manufacturing_erp_root"
+              parent="menu_production_management"
               action="action_engineering_change"
               sequence="10"/>
 </odoo>

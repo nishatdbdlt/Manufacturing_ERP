@@ -1,0 +1,19 @@
+<odoo>
+    <record id="seq_engineering_change" model="ir.sequence">
+        <field name="name">Engineering Change Order</field>
+        <field name="code">manufacturing.engineering.change</field>
+        <field name="prefix">ECO-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+
+
+     <record id="seq_engineering_plan" model="ir.sequence">
+        <field name="name">Engineering Change Order</field>
+        <field name="code">manufacturing.production.plan</field>
+        <field name="prefix">Plan-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
